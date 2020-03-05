@@ -1,0 +1,22 @@
+.bar {
+    outline: 2px auto gray;
+    margin: auto;
+    align-self: center;
+    display: flex;
+    background-color: white;
+
+}
+
+.input {
+
+    width: 100%;
+
+}
+
+.inputContainer {
+    flex: 1;
+    margin-bottom: 7px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 10px;
+}

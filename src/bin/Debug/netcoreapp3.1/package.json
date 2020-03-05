@@ -24,7 +24,9 @@
     "aspnet-webpack-react": "^3.0.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
-    "extract-text-webpack-plugin": "^3.0.2"
+    "extract-text-webpack-plugin": "^3.0.2",
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1"
   },
   "dependencies": {
     "react": "16.13.0",

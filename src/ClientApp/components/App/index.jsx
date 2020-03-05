@@ -1,4 +1,7 @@
 import React from 'react';
+import {Container} from '@material-ui/core';
+import TaskInput from '../TaskInput';
+import styles from './styles.css';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -18,7 +21,10 @@ export default class App extends React.Component {
     render() {
         console.log("rerender");
         return (
-            <div>
+            <div >
+                <Container className={styles.container}>
+                    <TaskInput/>
+                </Container>
             </div>
         );
     }
