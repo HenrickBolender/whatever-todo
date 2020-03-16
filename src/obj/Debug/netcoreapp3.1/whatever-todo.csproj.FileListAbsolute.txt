@@ -57,3 +57,11 @@ C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\obj\Debug\netcoreapp3.1\whatev
 C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\obj\Debug\netcoreapp3.1\whatever-todo.csproj.CopyComplete
 C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\obj\Debug\netcoreapp3.1\whatever-todo.dll
 C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\obj\Debug\netcoreapp3.1\whatever-todo.pdb
+C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\bin\Debug\netcoreapp3.1\System.Data.SQLite.dll
+C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\netstandard2.0\SQLite.Interop.dll
+C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\netstandard2.0\SQLite.Interop.dll
+C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\netstandard2.0\SQLite.Interop.dll
+C:\Users\tf2ge\Documents\GitHub\whatever-todo\src\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\netstandard2.0\SQLite.Interop.dll

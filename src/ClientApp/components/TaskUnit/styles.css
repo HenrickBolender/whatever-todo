@@ -1,0 +1,14 @@
+.bar {
+    outline: 2px auto gray;
+    margin: 0 auto;
+    align-self: center;
+    display: flex;
+    background-color: white;
+    width: inherit
+}
+
+.container {
+    flex: 1;
+    margin-right: 10px;
+    margin-top: 13px;
+}
