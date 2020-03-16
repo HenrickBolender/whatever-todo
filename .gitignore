@@ -1,4 +1,6 @@
 /.vs/
 /.idea
 /*.user
-node_modules
+/src/node_modules
+/src/bin
+/src/idea
