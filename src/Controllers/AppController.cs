@@ -25,6 +25,15 @@ namespace whatever_todo.Controllers
             return Ok(lastId);
         }
 
+        [HttpPatch]
+        public IActionResult Patch([FromBody] TaskItem item)
+        {
+            if (item.Id == -1)
+                return NotFound();
+            repository.ChangeTaskStatus(item.Id, item.IsDone);
+            return Ok();
+        }
+
         [HttpGet]
         public IActionResult Get()
         {

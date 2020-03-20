@@ -46,6 +46,15 @@ namespace whatever_todo.Model.DBRepository
             cmd.ExecuteNonQuery();
         }
 
+        public void ChangeTaskStatus(int taskId, bool isDone)
+        {
+            using var cmd = new SQLiteCommand(connection);
+            cmd.CommandText = @"UPDATE tasks SET isDone=@isDone WHERE task_id=@task_id";
+            cmd.Parameters.AddWithValue("isDone", isDone ? 1 : 0);
+            cmd.Parameters.AddWithValue("task_id", taskId);
+            cmd.ExecuteNonQuery();
+        }
+
         public IEnumerable<TaskItem> GetAllTasks(int id)
         {
             using var cmd = new SQLiteCommand(connection);

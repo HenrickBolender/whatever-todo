@@ -46,6 +46,7 @@ export default class TaskInput extends React.Component {
     {
       const data = {task: this.inputRef.value};
       console.log(JSON.stringify(data));
+
       if (data.task === "")
       {
         console.log("no input task to post");
@@ -59,9 +60,7 @@ export default class TaskInput extends React.Component {
         id: -1
       };
 
-      this.props.parentList.push(taskItem);
-
-      console.log(this.props.parentList);
+      this.props.onPost(taskItem);
 
       fetch("https://localhost:5001/app", {
         method: 'POST',
@@ -74,7 +73,6 @@ export default class TaskInput extends React.Component {
       .then(data => {
         taskItem.id = data;
       });
-
       this.inputRef.value = "";
     }
     

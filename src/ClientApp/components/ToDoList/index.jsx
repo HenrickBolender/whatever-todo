@@ -23,9 +23,49 @@ export default class ToDoList extends React.Component {
         .then(responce => responce.json())
         .then(data => {
             this.setState({
-               tasks: data  
+               tasks: this.sortTasks(data)  
             })
             console.log(this.state.tasks);
+        });
+    }
+
+    addNewTask(taskItem)
+    {
+        let newTasks = this.state.tasks;
+        newTasks.push(taskItem);
+
+
+        this.setState({
+            tasks: newTasks
+        });
+        this.updateListOrder();
+    }
+
+    sortTasks(taskList)
+    {
+        return taskList.sort(function(a,b) {
+            var a1 = 0;
+            if (a.isDone === true)
+            {
+                a1 = 1;
+            }
+
+            var b2 = 0;
+            if (b.isDone === true)
+            {
+                b2 = 1;
+            }
+
+
+            return a1 - b2;
+        });
+    }
+
+    updateListOrder()
+    {
+        let newTasks = this.sortTasks(this.state.tasks);
+        this.setState({
+            tasks: newTasks
         });
     }
 
@@ -38,11 +78,11 @@ export default class ToDoList extends React.Component {
             <Grid container>
                 {
                     this.state.tasks.map((task, index) => 
-                        <TaskUnit key={index} description={task.task} isDone={false} id={task.id}/>
+                        <TaskUnit key={index} taskItem={task} onExecution={this.updateListOrder.bind(this)}/>
                     )
                 }
             </Grid>
-            <TaskInput parentList={this.state.tasks}/>
+            <TaskInput onPost={this.addNewTask.bind(this)}/>
             </div>
         );
     }

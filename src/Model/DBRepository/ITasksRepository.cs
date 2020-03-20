@@ -9,6 +9,8 @@ namespace whatever_todo.Model.DBRepository
         long InsertTask(int id, DateTime date, string task, bool isDone);
 
         void DeleteTask(int taskId);
+
+        void ChangeTaskStatus(int taskId, bool isDone);
         IEnumerable<TaskItem> GetAllTasks(int id);
     }
 }
