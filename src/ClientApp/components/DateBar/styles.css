@@ -1,0 +1,30 @@
+.bar {
+    outline: 2px auto gray;
+    margin: auto;
+    align-self: center;
+    display: flex;
+    background-color: white;
+}
+
+.container {
+    flex : 1;
+}
+
+.daymonth_label {
+    text-align: center; 
+    display: block;
+    margin-top: 20px;
+    font-size: larger;
+}
+
+.year_label {
+    text-align: center; 
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

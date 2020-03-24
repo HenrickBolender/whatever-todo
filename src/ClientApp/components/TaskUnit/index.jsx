@@ -16,11 +16,8 @@ export default class TaskUnit extends React.Component {
     executeTask(){
 
         this.props.taskItem.isDone = true;
-
         this.props.onExecution();
-
         const data = {id: this.props.taskItem.id, isDone: true}
-
         fetch("https://localhost:5001/app", {
           method: 'PATCH',
           body: JSON.stringify(data),
@@ -32,12 +29,9 @@ export default class TaskUnit extends React.Component {
     }
 
     delete(){
-      this.setState({
-        isDeleted: true
-      });
 
+      this.props.onDelete(this.props.index);
       const data = {task: this.props.taskItem.task, id: this.props.taskItem.id}
-
       fetch("https://localhost:5001/app", {
         method: 'DELETE',
         body: JSON.stringify(data),
@@ -55,14 +49,12 @@ export default class TaskUnit extends React.Component {
     }
 
     render() {
-
-        if (this.state.isDeleted) return false;
-        
         return (
             <div className={styles.bar}>
               <Checkbox color="default" checked={this.props.taskItem.isDone} disabled={this.props.taskItem.isDone} onChange={this.executeTask.bind(this)}/>
               <div className={styles.container}>
-        <Typography >{this.props.taskItem.isDone? <s>{this.props.taskItem.task}</s> : this.props.taskItem.task}</Typography>
+        <Typography variant='h6'>{this.props.taskItem.isDone? <s>{this.props.taskItem.task}</s> : this.props.taskItem.task}</Typography>
+        <Typography color='textSecondary'   >10:40</Typography>
               </div>
               <IconButton onClick={this.delete.bind(this)}>
                     <Delete/>

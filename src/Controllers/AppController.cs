@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
 using whatever_todo.Model;
 using whatever_todo.Model.DBRepository;
@@ -20,7 +23,10 @@ namespace whatever_todo.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TaskItem item)
         {
-            var lastId = repository.InsertTask(1, DateTime.Now, item.Task, false);
+            var dateValues = item.Date.Split('.').Select(int.Parse).ToArray();
+            var dt = new DateTime(dateValues[2], dateValues[1], dateValues[0]);
+
+            var lastId = repository.InsertTask(1, dt, item.Task, false);
             Console.WriteLine(item.Task);
             return Ok(lastId);
         }
@@ -35,9 +41,11 @@ namespace whatever_todo.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string date, int id)
         {
-            return Ok(repository.GetAllTasks(1));
+            var dt = DateTime.ParseExact(date, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            var tasks = repository.GetTasksByDate(dt, id).ToArray();
+            return Ok(tasks);
         }
 
         [HttpDelete]
@@ -49,5 +57,5 @@ namespace whatever_todo.Controllers
             repository.DeleteTask(item.Id);
             return Ok();
         }
-    }    
+    }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import {Grid} from "@material-ui/core"
 import TaskUnit from "../TaskUnit"
 import TaskInput from "../TaskInput"
+import DateBar from "../DateBar";
  
 
 
@@ -10,14 +11,29 @@ export default class ToDoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tasks: []
+            tasks: [],
+            currentDate: new Date()
         };
 
 
     }
 
     componentDidMount() {
-        fetch("https://localhost:5001/app", {
+        this.setTasks(this.state.currentDate);
+    }
+
+    setTasks(tasksDate)
+    {
+        console.log(tasksDate.toLocaleString().split(',', 1)[0]);
+
+        var url = new URL("https://localhost:5001/app"),
+        params = {
+            date: tasksDate.toLocaleString().split(',', 1)[0], 
+            id: 1
+        }
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+        fetch(url, {
             method: 'GET'
         })
         .then(responce => responce.json())
@@ -34,7 +50,6 @@ export default class ToDoList extends React.Component {
         let newTasks = this.state.tasks;
         newTasks.push(taskItem);
 
-
         this.setState({
             tasks: newTasks
         });
@@ -43,22 +58,13 @@ export default class ToDoList extends React.Component {
 
     sortTasks(taskList)
     {
-        return taskList.sort(function(a,b) {
-            var a1 = 0;
-            if (a.isDone === true)
-            {
-                a1 = 1;
-            }
+        return taskList.sort((a,b) => (a.isDone? 1: 0) - (b.isDone? 1: 0));
+    }
 
-            var b2 = 0;
-            if (b.isDone === true)
-            {
-                b2 = 1;
-            }
-
-
-            return a1 - b2;
-        });
+    removeTask(index)
+    {
+        this.state.tasks.splice(index, 1);
+        this.forceUpdate();
     }
 
     updateListOrder()
@@ -75,14 +81,15 @@ export default class ToDoList extends React.Component {
     render() {
         return (
             <div>
+            <DateBar onDateSwitch={this.setTasks.bind(this)} currentDate={this.state.currentDate}/>
             <Grid container>
                 {
                     this.state.tasks.map((task, index) => 
-                        <TaskUnit key={index} taskItem={task} onExecution={this.updateListOrder.bind(this)}/>
+                        <TaskUnit key={index} index={index} taskItem={task} onExecution={this.updateListOrder.bind(this)} onDelete={this.removeTask.bind(this)}/>
                     )
                 }
             </Grid>
-            <TaskInput onPost={this.addNewTask.bind(this)}/>
+            <TaskInput onPost={this.addNewTask.bind(this)} currentDate={this.state.currentDate}/>
             </div>
         );
     }

@@ -15,7 +15,7 @@ namespace whatever_todo.Model.DBRepository
             DataSourcePath = $"Data Source={Path.Combine(Environment.CurrentDirectory, "whatever-todo.s3db")};";
         }
         
-        private SQLiteConnection connection;
+        private readonly SQLiteConnection connection;
         
         public SqliteTasksRepository()
         {
@@ -30,7 +30,7 @@ namespace whatever_todo.Model.DBRepository
                 @"INSERT INTO tasks(user_id, datetime, task, isDone) 
                     values (@user_id,@datetime,@task,@isDone)";
             cmd.Parameters.AddWithValue("user_id", userId.ToString());
-            cmd.Parameters.AddWithValue("datetime", date.ToString("s"));
+            cmd.Parameters.AddWithValue("datetime", date.ToShortDateString());
             cmd.Parameters.AddWithValue("task", task);
             cmd.Parameters.AddWithValue("isDone", isDone ? "1" : "0");
             cmd.ExecuteNonQuery();
@@ -59,10 +59,9 @@ namespace whatever_todo.Model.DBRepository
         {
             using var cmd = new SQLiteCommand(connection);
             cmd.CommandText = @"SELECT * FROM tasks WHERE user_id=@user_id ORDER BY datetime";
-            cmd.Parameters.AddWithValue("@user_id", id.ToString());
+            cmd.Parameters.AddWithValue("user_id", id.ToString());
 
             using SQLiteDataReader rdr = cmd.ExecuteReader();
-
             while (rdr.Read())
             {
                 yield return new TaskItem()
@@ -72,7 +71,26 @@ namespace whatever_todo.Model.DBRepository
                     Date = rdr.GetDateTime(2).ToString(CultureInfo.InvariantCulture),
                     IsDone = rdr.GetBoolean(4)
                 };
-                
+            }
+        }
+
+        public IEnumerable<TaskItem> GetTasksByDate(DateTime date, int id)
+        {
+
+            using var cmd = new SQLiteCommand(connection);
+            cmd.CommandText = @"SELECT * FROM tasks WHERE user_id=@user_id AND datetime=@datetime";
+            cmd.Parameters.AddWithValue("user_id", id.ToString());
+            cmd.Parameters.AddWithValue("datetime", date.ToShortDateString());
+            using SQLiteDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                yield return new TaskItem()
+                {
+                    Id = rdr.GetInt32(0),
+                    Task = rdr.GetString(3),
+                    Date = rdr.GetString(2),
+                    IsDone = rdr.GetBoolean(4)
+                };
             }
         }
     }

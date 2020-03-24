@@ -42,10 +42,10 @@ export default class TaskInput extends React.Component {
     componentWillUnmount() {
     }
 
-    postTask()
+    postTask(currentDate)
     {
+      console.log(currentDate);
       const data = {task: this.inputRef.value};
-      console.log(JSON.stringify(data));
 
       if (data.task === "")
       {
@@ -55,16 +55,18 @@ export default class TaskInput extends React.Component {
 
       const taskItem = {
         task:data.task,
-        date: new Date().toLocaleString().replace(".", "/").replace(".", "/"),
+        date: currentDate.toLocaleString().split(',', 1)[0],
         isDone: false,
         id: -1
       };
+
+      console.log(JSON.stringify(taskItem));
 
       this.props.onPost(taskItem);
 
       fetch("https://localhost:5001/app", {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(taskItem),
         headers:  {
           'Content-Type' : 'application/json'
         }
@@ -83,7 +85,7 @@ export default class TaskInput extends React.Component {
                     <CssTextField inputRef = {ref => {this.inputRef = ref}} className={styles.input} placeholder="Введите задачу!"/>
                 </div>
                 <Divider orientation="vertical" flexItem className={styles.divider}/>
-                <IconButton onClick={this.postTask.bind(this)}>
+                <IconButton onClick={this.postTask.bind(this, this.props.currentDate)}>
                     <ArrowUpward/>
                 </IconButton>   
             </div>

@@ -12,5 +12,7 @@ namespace whatever_todo.Model.DBRepository
 
         void ChangeTaskStatus(int taskId, bool isDone);
         IEnumerable<TaskItem> GetAllTasks(int id);
+
+        IEnumerable<TaskItem> GetTasksByDate(DateTime date, int id);
     }
 }
